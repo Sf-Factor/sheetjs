@@ -534,6 +534,15 @@ export interface MarginInfo {
     /** Footer bottom height (inches) */
     footer?: number;
 }
+
+export interface CellValidation {
+    /** The range of cells on which the validation applies */
+    sqref: string
+
+    /** The list of allowed values in enum */
+    values: string[]
+}
+
 export type SheetType = 'sheet' | 'chart';
 export type SheetKeys = string | MarginInfo | SheetType;
 /** General object representing a Sheet (worksheet or chartsheet) */
@@ -560,6 +569,9 @@ export interface Sheet {
 
     /** Page Margins */
     '!margins'?: MarginInfo;
+
+    /** Cell validations */
+    '!validations'?: CellValidation[]
 }
 /** General object representing a dense Sheet (worksheet or chartsheet) */
 export interface DenseSheet extends Sheet {
