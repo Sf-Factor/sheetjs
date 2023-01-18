@@ -6677,7 +6677,7 @@ var rs_to_html = (function parse_rs_factory() {
 })();
 
 /* 18.4.8 si CT_Rst */
-var sitregex = /<(?:\w+:)?t[^>]*>([^<]*)<\/(?:\w+:)?t>/g, sirregex = /<(?:\w+:)?r>/;
+var sitregex = /<(?:\w+:)?t[^>]*>([^<]*)<\/(?:\w+:)?t>/g, sirregex = /<(?:\w+:)?r\b[^>]*>/;
 var sirphregex = /<(?:\w+:)?rPh.*?>([\s\S]*?)<\/(?:\w+:)?rPh>/g;
 function parse_si(x, opts) {
 	var html = opts ? opts.cellHTML : true;
@@ -8868,7 +8868,8 @@ function write_ws_xml(idx, opts, wb, rels) {
 
 	/* phoneticPr */
 	/* conditionalFormatting */
-	/* dataValidations */
+
+	if(ws['!validations'] != null && ws['!validations'].length > 0) o[o.length] = (write_ws_xml_validation_lists(ws['!validations']));
 
 	var relc = -1, rel, rId = -1;
 	if(ws['!links'].length > 0) {
@@ -8926,6 +8927,20 @@ ws['!links'].forEach(function(l) {
 
 	if(o.length>1) { o[o.length] = ('</worksheet>'); o[1]=o[1].replace("/>",">"); }
 	return o.join("");
+}
+
+function write_ws_xml_validation_lists (validations) {
+	var o = '<dataValidations count="' + validations.length + '">';
+
+	for (var i = 0; i < validations.length; i++) {
+		o += '<dataValidation allowBlank="true" errorStyle="stop" operator="equal" showDropDown="false" showErrorMessage="true" showInputMessage="false" sqref="' + validations[i].sqref + '" type="list">';
+		o += '<formula1>&quot;' + validations[i].values.join(',') + '&quot;</formula1>';
+		o += '</dataValidation>';
+	}
+
+	o += '</dataValidations>';
+
+	return o;
 }
 function parse_Cache(data) {
 	var col = [];
