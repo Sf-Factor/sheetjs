@@ -1,6 +1,6 @@
 # Instructions to use this fork
 
-## Clone the repository & start tracking original sheetjs repo
+## clone the repository & start tracking original sheetjs repo
 
 The following commands clones repository, then tracks original repository as `original` branch.
 
@@ -20,6 +20,19 @@ git pull
 git checkout master
 git rebase original
 git push -f
+```
+
+## build the library
+
+[Official reference](https://docs.sheetjs.com/docs/miscellany/contributing#os-specific-setup)
+
+
+```bash
+# for rebuild after a first successful build
+make clean
+cd modules; make; cd ..
+make
+make dist
 ```
 
 ___
