@@ -1,3 +1,30 @@
+# Instructions to use this fork
+
+## Clone the repository & start tracking original sheetjs repo
+
+The following commands clones repository, then tracks original repository as `original` branch.
+
+```bash
+git clone git@github.com:Sf-Factor/sheetjs.git
+cd sheetjs
+git remote add upstream https://git.sheetjs.com/sheetjs/sheetjs.git
+git fetch upstream
+git checkout -b original upstream/master
+```
+
+## fetch updates from sheetjs
+
+```bash
+git checkout original
+git pull
+git checkout master
+git rebase original
+git push -f
+```
+
+___
+<br/><br/><br/><br/><br/><br/>
+
 # [SheetJS](https://sheetjs.com)
 
 The SheetJS Community Edition offers battle-tested open-source solutions for
